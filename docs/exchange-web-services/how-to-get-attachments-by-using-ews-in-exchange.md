@@ -45,6 +45,7 @@ public static void GetAttachmentsFromEmail(ExchangeService service, ItemId itemI
         {
             FileAttachment fileAttachment = attachment as FileAttachment;
             // Load the attachment into a file.
+            // This does not save attachment contents into the file
             // This call results in a GetAttachment call to EWS.
             fileAttachment.Load("C:\\temp\\" + fileAttachment.Name);
            
@@ -56,7 +57,7 @@ public static void GetAttachmentsFromEmail(ExchangeService service, ItemId itemI
             // Load attachment into memory and write out the subject.
             // This does not save the file like it does with a file attachment.
             // This call results in a GetAttachment call to EWS.
-            itemAttachment.Load();
+            itemAttachment.Load().Wait();
             Console.WriteLine("Item attachment name: " + itemAttachment.Name);
         }
     }
